@@ -18,8 +18,8 @@ Pi-Digits is a React application that fetches and displays the first \( n \) dig
 
 ## Error Handling
 
-1. **Numbers > 1000**: Handle cases where the input number is greater than 1000.
-2. **Negative Numbers**: Handle cases where the input number is negative.
+1. ~~**Numbers > 1000**: Handle cases where the input number is greater than 1000.~~
+2. ~~**Negative Numbers**: Handle cases where the input number is negative.~~
 
 ## New Features to Implement
 
