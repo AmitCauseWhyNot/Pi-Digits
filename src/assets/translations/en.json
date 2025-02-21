@@ -3,5 +3,14 @@
   "welcome": "Hello {name}, good day",
   "lbl.formateDate": "{dateParam, date, short}",
   "lbl.log_in": "Login in english",
-  "lbl.username": "Login"
+  "lbl.sign_in": "Sign in",
+  "lbl.username": "Login",
+  "lbl.password": "Password",
+  "lbl.forgot_password": "Forgot Password",
+  "lbl.logout": "Logout",
+  "lbl.pause": "Pause",
+  "lbl.unpause": "unPause",
+  "lbl.start": "Start",
+  "lbl.refresh": "Refresh",
+  "lbl.numofdigits": "Num of digits"
 }

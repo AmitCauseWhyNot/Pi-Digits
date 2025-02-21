@@ -6,7 +6,7 @@ import { LocalizationContext } from "../common/intl/LocalizationContext";
 import IconGlobe from "./icons/IconGlobe";
 
 const LanguageSwitch = (props) => {
-  const { locale, nextLanguage, switchLanguage } =
+  const { locale, switchLanguage } =
     useContext(LocalizationContext);
 
   return (
@@ -19,6 +19,7 @@ const LanguageSwitch = (props) => {
         alignItems: "center",
         justifyContent: "center",
         ":hover": {
+          outline: "2px solid black",
           cursor: "pointer",
         },
         ...props.sx,
@@ -26,7 +27,7 @@ const LanguageSwitch = (props) => {
     >
       <IconGlobe />
       <Text ml="0.25rem" sx={{ fontSize: "1rem", color: "white" }}>
-        {SUPPORTED_LOCALES[nextLanguage(locale)]}
+        { SUPPORTED_LOCALES[locale] }
       </Text>
     </Flex>
   );

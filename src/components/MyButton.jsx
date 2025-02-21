@@ -13,6 +13,7 @@ const MyButton = ({ children, ...props }) => {
         ":hover": {
           opacity: "0.8",
           outline: "2px solid black",
+          cursor: "pointer",
         },
         ":disabled": {
           bg: "lightgray",

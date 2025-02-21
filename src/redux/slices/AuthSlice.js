@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  loggedIn: localStorage.getItem("logged_in"),
-  username: localStorage.getItem("user_name"),
+  loggedIn: localStorage.getItem("logged_in") === "true" ? true : false,
+  username: localStorage.getItem("username"),
   error: null,
 };
 
@@ -19,7 +19,7 @@ const authSlice = createSlice({
     doLogout(state) {
       state.loggedIn = false;
       localStorage.setItem("logged_in", false);
-      localStorage.setItem("user_id", null);
+      localStorage.setItem("username", null);
     },
   },
 });

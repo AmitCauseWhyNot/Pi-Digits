@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Title from "../components/Title";
 import RenderDigits from "../components/RenderDigits";
+import { FormattedMessage } from "react-intl";
 
 //================================================================================
 const Pi = () => {
@@ -21,7 +22,7 @@ const Pi = () => {
   const { loggedIn } = useSelector((state) => state.auth);
 
   // Number of digits to fetch from the api
-  const [numDigits, setNumDigits] = useState(20);
+  const [numDigits, setNumDigits] = useState(0);
   // Digits to Display
   const [digitsToDisplay, setDigitsToDisplay] = useState("3.");
   // Boolean to verfiy if start button pressed
@@ -31,23 +32,20 @@ const Pi = () => {
   // boolean to return the app to its initial state
   const [isRefreshed, setisRefreshed] = useState(true);
   // validations on input
-  const [errorType, setErrorType] = useState({
+  const [errorType] = useState({
     negative: false,
     tooLong: false,
   });
-  
-  useEffect(() => {
-    if (loggedIn === "false") history.push("/");
-  }, [history, loggedIn]);
-  
+
   //--------------------------------------------------------------
   //Use effect to print every second 1 digit
   useEffect(() => {
     // add 1 character to the display string
+    console.log(piDigits);
     const printDigits = () => {
       if (isStart && digitsToDisplay !== null)
         setDigitsToDisplay(
-          digitsToDisplay + piDigits.charAt(digitsToDisplay.length)
+          digitsToDisplay + piDigits.charAt(digitsToDisplay.length - 2)
         );
     };
 
@@ -63,14 +61,23 @@ const Pi = () => {
   //--------------------------------------------------------------
   //Handle minus function, sub 1 from  numDigits
   const handleMinus = () => {
-    setNumDigits(numDigits - 1);
+    if (numDigits > 0) {
+      setNumDigits(numDigits - 1);
+    }
     setIsStart(false);
   };
   //--------------------------------------------------------------
   //Handle plus function, sub 1 from  numDigits
   const handlePlus = () => {
-    if (numDigits === "") setNumDigits(1);
-    else setNumDigits(numDigits + 1);
+    if (numDigits === "" || numDigits === "0") setNumDigits(1);
+    else {
+      if (numDigits < 1000) {
+        setNumDigits(numDigits + 1);
+      }
+      else {
+        setNumDigits(1000);
+      }
+    }
     setIsStart(false);
   };
   //--------------------------------------------------------------
@@ -91,12 +98,15 @@ const Pi = () => {
     setPause(false);
     setDigitsToDisplay("3.");
     setisRefreshed(true);
-    setNumDigits(20);
+    setNumDigits(0);
   };
   //--------------------------------------------------------------
   const changeNumDigit = (value) => {
     handleRefresh();
-    setNumDigits(value || "");
+    value = value.trim();
+    if (!isNaN(value)) {
+      setNumDigits(value);
+    }
   };
   //--------------------------------------------------------------
 
@@ -141,7 +151,9 @@ const Pi = () => {
             width: "15%",
           }}
         >
-          <Text>Number of digits</Text>
+          <Text>
+            <FormattedMessage id="lbl.numofdigits" />
+          </Text>
           <Flex id="plusMinus-container">
             <MyButton backgroundColor="coral" onClick={handleMinus}>
               -
@@ -160,7 +172,8 @@ const Pi = () => {
               }}
               value={numDigits}
               onChange={(e) => {
-                changeNumDigit(e.target.value);
+                const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                changeNumDigit(newValue);
               }}
             />
             <MyButton backgroundColor="DeepSkyBlue" onClick={handlePlus}>
@@ -184,19 +197,23 @@ const Pi = () => {
               bg="coral"
               sx={{ width: "100px" }}
             >
-              {pause ? "unPause" : "pause"}
+              {pause ? (
+                <FormattedMessage id="lbl.unpause" />
+              ) : (
+                <FormattedMessage id="lbl.pause" />
+              )}
             </MyButton>
             <MyButton
-              disabled={isStart || !numDigits}
+              disabled={isStart || !Number(String(numDigits).trim())}
               onClick={handleStart}
               bg="DeepSkyBlue"
               sx={{ width: "100px" }}
             >
-              Start
+              <FormattedMessage id="lbl.start" />
             </MyButton>
           </Flex>
           <MyButton bg="lightgreen" onClick={handleRefresh}>
-            Refresh
+            <FormattedMessage id="lbl.refresh" />
           </MyButton>
         </Flex>
         <RenderDigits

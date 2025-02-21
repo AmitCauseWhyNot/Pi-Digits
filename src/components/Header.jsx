@@ -1,10 +1,24 @@
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FormattedMessage } from "react-intl";
-import { Image, Flex, Text } from "theme-ui";
+import { Button, Image, Flex, Text } from "theme-ui";
+import { doLogout } from "../redux/slices/AuthSlice";
 
 import pi_header from "../assets/images/pi_header.png";
 import LanguageSwitch from "./LanguageSwitch";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const setErrorState = useState(null);
+
+  const onLogoutClick = () => {
+    try {
+      dispatch(doLogout());
+    } catch (error) {
+      setErrorState(error);
+    }
+  }
+
   return (
     <Flex
       id="Pi_Flex"
@@ -24,11 +38,34 @@ const Header = () => {
         />
       </Text>
 
-      <Image src={pi_header}></Image>
+      <Image src={pi_header} sx={{ marginLeft: "12em" }} />
 
-      <LanguageSwitch sx={{ width: "10rem" }} />
+      <Flex sx={{ alignItems: "center" }}>
+        <Button
+          sx={{
+            marginRight: "1em",
+            backgroundColor: "gray",
+            color: "white",
+            width: "10rem",
+            height: "2.5rem",
+            alignItems: "center",
+            borderRadius: ".5em",
+            fontFamily: "Arial",
+            ":hover": {
+              outline: "2px solid black",
+              cursor: "pointer"
+            }
+          }}
+          onClick={onLogoutClick}
+        >
+          <FormattedMessage id="lbl.logout" />
+        </Button>
+
+        <LanguageSwitch sx={{ width: "10rem" }} />
+      </Flex>
     </Flex>
   );
 };
+
 
 export default Header;

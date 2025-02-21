@@ -10,8 +10,8 @@ const MESSAGES = {
 
 const SUPPORTED_LOCALES = {
   en: "English",
-  ro: "Romanian",
-  heb: "Hebrew",
+  ro: "Român",
+  heb: "עברית",
 };
 
 const INITIAL_LOCALE = "en";

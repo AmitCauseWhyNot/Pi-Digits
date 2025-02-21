@@ -13,8 +13,6 @@ import logo from "../assets/images/logo.svg";
 import background from "../assets/images/background.webp";
 
 const Login = () => {
-  console.log("I fucking hate niggers");
-
   const history = useHistory();
   const { loggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -25,7 +23,9 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const ForgotPassword = () => {
-    return <Flex>Forgot Password</Flex>;
+    return ( <Flex>
+      <FormattedMessage id="lbl.forgot_password" />
+    </Flex> );
   };
 
   const ShowPassword = ({ onClick, showPassword }) => {
@@ -34,7 +34,7 @@ const Login = () => {
         <Flex
           mt={!showPassword ? "0.7rem" : "0.32rem"}
           ml="-3rem"
-          sx={{ position: "absolute", ":hover": { cursor: "pointer" } }}
+          sx={{ position: "absolute", ":hover": { outline: "2px solid black", cursor: "pointer" } }}
           onClick={onClick}
         >
           {!showPassword ? <IconEyeShow /> : <IconEyeHide />}
@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (loggedIn === "true") history.push("/home");
+    if (loggedIn) history.push("/home");
   }, [history, loggedIn]);
 
   return (
@@ -67,7 +67,7 @@ const Login = () => {
         backgroundImage: `url(${background})`,
       }}
     >
-      {loggedIn === "false" && (
+      {!loggedIn && (
         <Flex
           px="4rem"
           py="3rem"
