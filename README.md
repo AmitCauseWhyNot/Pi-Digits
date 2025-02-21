@@ -12,7 +12,7 @@ Pi-Digits is a React application that fetches and displays the first \( n \) dig
 ## Bugs to Fix
 
 1. ~~**Login Issue**: After pressing submit, the screen turns white instead of navigating into the app.~~
-2. **Input Validation**: Ensure the input field only accepts digits.
+2. ~~**Input Validation**: Ensure the input field only accepts digits.~~
 3. ~~**Incomplete Translations**: Complete all missing labels for Hebrew and Romanian.~~
 4. **Digit Rendering Bug**: The spinner remains on the screen, and if the user chooses to render 3 digits, it only renders 1.
 
