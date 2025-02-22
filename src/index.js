@@ -2,16 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Global } from "@emotion/react";
 import { Provider } from "react-redux";
-import { ThemeProvider } from "theme-ui";
 
 import MindRouter from "./common/router";
-import { theme } from "./common/theme";
 import { LocalizationProvider } from "./common/intl/LocalizationContext";
 import store from "./redux/store";
+import ThemeProvider from "./common/theme/ThemeProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <LocalizationProvider>
         <Provider store={store}>
           <Global

@@ -1,11 +1,12 @@
 import { Text } from "theme-ui";
 import { FormattedMessage } from "react-intl";
+import "./styles/Layout.css"
 
 const Title = () => {
   return (
     <Text
       sx={{
-        color: "white",
+        color: "var(--main-text-color)",
         fontFamily: "Times news Roman",
         fontStyle: "normal",
         fontSize: "50px",

@@ -11,6 +11,7 @@ import Title from "../components/Title";
 import RenderDigits from "../components/RenderDigits";
 import LongPressButton from "../components/LongPressButton";
 import { FormattedMessage } from "react-intl";
+import "../components/styles/Layout.css"
 
 //================================================================================
 const Pi = () => {
@@ -37,6 +38,8 @@ const Pi = () => {
     negative: false,
     tooLong: false,
   });
+
+  const formattedDigits = digitsToDisplay.slice(0, numDigits + 2);
 
   //--------------------------------------------------------------
   //Use effect to print every second 1 digit
@@ -88,7 +91,7 @@ const Pi = () => {
   const handleStart = () => {
     setIsStart(true);
     setDigitsToDisplay("3.");
-    dispatch(getPiDigits(numDigits));
+    dispatch(getPiDigits(1000)); // TODO EXPLAIN THIS LINE (why there is 1000)
     setisRefreshed(false);
   };
   //--------------------------------------------------------------
@@ -132,7 +135,7 @@ const Pi = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignContent: "center",
-        background: "#292A32",
+        background: "var(--main-background-color)",
         minHeight: "100vh",
       }}
     >
@@ -221,7 +224,7 @@ const Pi = () => {
               <MyButton
                 disabled={
                   (!piDigits && isRefreshed) ||
-                  digitsToDisplay.length === numDigits + 2 ||
+                  formattedDigits.length === numDigits + 2 ||
                   !numDigits ||
                   errorType.negative ||
                   errorType.tooLong
@@ -350,12 +353,12 @@ const Pi = () => {
         </Flex>
 
         <RenderDigits
-          digitsToDisplay={digitsToDisplay}
+          digitsToDisplay={formattedDigits}
           errorType={errorType}
           showSpinner={
             isStart &&
-            digitsToDisplay !== null &&
-            digitsToDisplay.length !== numDigits + 2
+            formattedDigits !== null &&
+            formattedDigits.length !== numDigits + 2
           }
           highlightedChar={digitSearch} // Highlight the character "3"
         />

@@ -1,7 +1,7 @@
 import { Flex, Text, Spinner, Button } from "theme-ui";
 
 const RenderDigits = ({
-  digitsToDisplay = "default value",
+  digitsToDisplay = "3.",
   errorType,
   showSpinner,
   highlightedChar = "", // Accept a single character to highlight

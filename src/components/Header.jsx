@@ -6,14 +6,13 @@ import { doLogout } from "../redux/slices/AuthSlice";
 
 import pi_header from "../assets/images/pi_header.png";
 import LanguageSwitch from "./LanguageSwitch";
+import { useTheme } from "../common/theme/ThemeProvider";
+import "./styles/Layout.css";
+
 const Header = () => {
   const dispatch = useDispatch();
   const setErrorState = useState(null);
-  const [isDark, setIsDark] = useState(true); // Initialize state for isDark
-
-  const handleThemeChange = () => {
-    setIsDark((isDark) => !isDark); // Toggle the value of isDark
-  };
+  const { theme, toggleTheme } = useTheme(); 
 
   const onLogoutClick = () => {
     try {
@@ -27,7 +26,7 @@ const Header = () => {
     <Flex
       id="Pi_Flex"
       sx={{
-        backgroundColor: "DeepSkyBlue ",
+        backgroundColor: "var(--marginal-background-color)",
         justifyContent: "space-around",
         alignItems: "center",
         width: "100%",
@@ -39,21 +38,21 @@ const Header = () => {
         <Button
           sx={{
             marginRight: "1em",
-            backgroundColor: !isDark ? "white" : "black",
-            color: isDark ? "white" : "black",
+            backgroundColor: "var(--main-background-color)",
+            color: "var(--main-text-color)",
             width: "10rem",
             height: "2.5rem",
             alignItems: "center",
             borderRadius: ".5em",
             fontFamily: "Arial",
             ":hover": {
-              outline: !isDark ? "2px solid black" : "2px solid white",
+              outline: "2px solid var(--main-text-color)",
               cursor: "pointer",
             },
           }}
-          onClick={handleThemeChange}
+          onClick={() => toggleTheme()}
         >
-          {!isDark ? (
+          {theme === "light" ? (
             <FormattedMessage id="lbl.darkmode" />
           ) : (
             <FormattedMessage id="lbl.lightmode" />
