@@ -12,5 +12,8 @@
   "lbl.unpause": "unPause",
   "lbl.start": "Start",
   "lbl.refresh": "Refresh",
-  "lbl.numofdigits": "Num of digits"
+  "lbl.numofdigits": "Num of digits",
+  "lbl.darkmode": "Dark mode",
+  "lbl.lightmode": "Light mode",
+  "lbl.highlightdigit": "Highlight Digit"
 }

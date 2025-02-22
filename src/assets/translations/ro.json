@@ -12,5 +12,9 @@
   "lbl.unpause": "NePauză",
   "lbl.start": "Începe",
   "lbl.refresh": "Reîmprospăta",
-  "lbl.numofdigits": "Numărul de cifre"
+  "lbl.numofdigits": "Numărul de cifre",
+  "lbl.highlight": "Evidențiați Digit",
+  "lbl.darkmode": "Mod Întunecat",
+  "lbl.lightmode": "Mod Luminos",
+  "lbl.highlightdigit": "Evidențiați Digit"
 }

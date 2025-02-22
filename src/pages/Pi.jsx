@@ -21,6 +21,8 @@ const Pi = () => {
 
   // Number of digits to fetch from the api
   const [numDigits, setNumDigits] = useState(0);
+  const [digitSearch, setDigitSearch] = useState(0);
+
   // Digits to Display
   const [digitsToDisplay, setDigitsToDisplay] = useState("3.");
   // Boolean to verfiy if start button pressed
@@ -95,16 +97,22 @@ const Pi = () => {
     setDigitsToDisplay("3.");
     setisRefreshed(true);
     setNumDigits(0);
+    setDigitSearch(0);
   };
   //--------------------------------------------------------------
   const changeNumDigit = (value) => {
     handleRefresh();
-    value = value.trim();
     if (!isNaN(value) && 0 <= Number(value) && Number(value) <= 1000) {
       setNumDigits(value);
     }
   };
   //--------------------------------------------------------------
+  // function to handle change to the digit search input
+  const changeDigitSearch = (value) => {
+    if (!isNaN(value) && 0 <= Number(value) && Number(value) <= 9) {
+      setDigitSearch(value);
+    }
+  };
 
   return (
     <Flex
@@ -124,7 +132,7 @@ const Pi = () => {
         sx={{
           alignItems: "center",
           flexDirection: "column",
-          justifyContent: "space-around",
+          justifyContent: "center",
           height: "100%",
           py: "20px",
           my: "auto",
@@ -133,85 +141,144 @@ const Pi = () => {
         <Title />
 
         <Flex
-          id="main box"
           sx={{
+            alignContent: "center",
             alignItems: "center",
-            background: "whitesmoke",
-            border: "solid",
-            borderRadius: "30px",
-            flexDirection: "column",
-            height: "280px",
-            justifyContent: "space-between",
-            marginTop: "50px",
-            py: "20px",
-            width: "15%",
+            flexDirection: "row",
+            height: "100%",
+            width: "100%",
+            justifyContent: "center",
+            margin: "auto",
           }}
         >
-          <Text>
-            <FormattedMessage id="lbl.numofdigits" />
-          </Text>
-          <Flex id="plusMinus-container">
-            <LongPressButton backgroundColor="coral" onClick={handleMinus} onLongPress={handleMinus}>
-              -
-            </LongPressButton>
-            <Input
-              sx={{
-                marginX: "10px",
-                textAlign: "center",
-                width: "100px",
-                borderRadius: "10px",
-                borderWidth: "2px",
-                outlineColor:
-                  errorType.negative || errorType.tooLong ? "red" : "black",
-                borderColor:
-                  errorType.negative || errorType.tooLong ? "red" : "black",
-              }}
-              value={numDigits}
-              onChange={(e) => {
-                const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
-                changeNumDigit(newValue);
-              }}
-            />
-            <LongPressButton backgroundColor="DeepSkyBlue" onClick={handlePlus} onLongPress={handlePlus}>
-              +
-            </LongPressButton>
-          </Flex>
-
           <Flex
-            id="action-container"
-            sx={{ width: "100%", justifyContent: "space-around" }}
+            id="main box"
+            sx={{
+              alignItems: "center",
+              background: "whitesmoke",
+              border: "solid",
+              borderRadius: "30px",
+              flexDirection: "column",
+              height: "280px",
+              justifyContent: "space-between",
+              marginTop: "50px",
+              py: "20px",
+              width: "15%",
+            }}
           >
-            <MyButton
-              disabled={
-                (!piDigits && isRefreshed) ||
-                digitsToDisplay.length === numDigits + 2 ||
-                !numDigits ||
-                errorType.negative ||
-                errorType.tooLong
-              }
-              onClick={handlePause}
-              bg="coral"
-              sx={{ width: "100px" }}
+            <Text>
+              <FormattedMessage id="lbl.numofdigits" />
+            </Text>
+            <Flex id="plusMinus-container">
+              <LongPressButton
+                backgroundColor="coral"
+                onClick={handleMinus}
+                onLongPress={handleMinus}
+              >
+                -
+              </LongPressButton>
+              <Input
+                sx={{
+                  marginX: "10px",
+                  textAlign: "center",
+                  width: "100px",
+                  borderRadius: "10px",
+                  borderWidth: "2px",
+                  outlineColor:
+                    errorType.negative || errorType.tooLong ? "red" : "black",
+                  borderColor:
+                    errorType.negative || errorType.tooLong ? "red" : "black",
+                }}
+                value={numDigits}
+                onChange={(e) => {
+                  const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                  changeNumDigit(newValue);
+                }}
+              />
+              <LongPressButton
+                backgroundColor="DeepSkyBlue"
+                onClick={handlePlus}
+                onLongPress={handlePlus}
+              >
+                +
+              </LongPressButton>
+            </Flex>
+            <Flex
+              id="action-container"
+              sx={{ width: "100%", justifyContent: "space-around" }}
             >
-              {pause ? (
-                <FormattedMessage id="lbl.unpause" />
-              ) : (
-                <FormattedMessage id="lbl.pause" />
-              )}
-            </MyButton>
-            <MyButton
-              disabled={isStart || !Number(String(numDigits).trim())}
-              onClick={handleStart}
-              bg="DeepSkyBlue"
-              sx={{ width: "100px" }}
-            >
-              <FormattedMessage id="lbl.start" />
+              <MyButton
+                disabled={
+                  (!piDigits && isRefreshed) ||
+                  digitsToDisplay.length === numDigits + 2 ||
+                  !numDigits ||
+                  errorType.negative ||
+                  errorType.tooLong
+                }
+                onClick={handlePause}
+                bg="coral"
+                sx={{ width: "100px" }}
+              >
+                {pause ? (
+                  <FormattedMessage id="lbl.unpause" />
+                ) : (
+                  <FormattedMessage id="lbl.pause" />
+                )}
+              </MyButton>
+              <MyButton
+                disabled={isStart || !Number(String(numDigits).trim())}
+                onClick={handleStart}
+                bg="DeepSkyBlue"
+                sx={{ width: "100px" }}
+              >
+                <FormattedMessage id="lbl.start" />
+              </MyButton>
+            </Flex>
+            <MyButton bg="lightgreen" onClick={handleRefresh}>
+              <FormattedMessage id="lbl.refresh" />
             </MyButton>
           </Flex>
-          <MyButton bg="lightgreen" onClick={handleRefresh}>
-            <FormattedMessage id="lbl.refresh" />
-          </MyButton>
+          <Flex
+            sx={{
+              alignItems: "center",
+              background: "whitesmoke",
+              border: "solid",
+              borderRadius: "30px",
+              flexDirection: "column",
+              height: "280px",
+              justifyContent: "space-between",
+              marginTop: "50px",
+              py: "20px",
+              width: "15%",
+            }}
+          >
+            <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
+              <Text>
+                <FormattedMessage id="lbl.highlightdigit" />
+              </Text>
+              <Input
+                sx={{
+                  marginX: "10px",
+                  marginY: "10px",
+                  textAlign: "center",
+                  width: "15em",
+                  borderRadius: "10px",
+                  borderWidth: "2px",
+                  outlineColor:
+                    errorType.negative || errorType.tooLong ? "red" : "black",
+                  borderColor:
+                    errorType.negative || errorType.tooLong ? "red" : "black",
+                }}
+                value={digitSearch}
+                onChange={(e) => {
+                  const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                  changeDigitSearch(newValue);
+                }}
+              />
+            </Flex>
+          </Flex>
         </Flex>
+
         <RenderDigits
           digitsToDisplay={digitsToDisplay}
           errorType={errorType}
@@ -220,6 +287,7 @@ const Pi = () => {
             digitsToDisplay !== null &&
             digitsToDisplay.length !== numDigits + 2
           }
+          highlightedChar={digitSearch} // Highlight the character "3"
         />
       </Flex>
       <Footer />

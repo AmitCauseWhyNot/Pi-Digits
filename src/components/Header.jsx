@@ -13,8 +13,7 @@ const Header = () => {
   const [isDark, setIsDark] = useState(true); // Initialize state for isDark
 
   const handleThemeChange = () => {
-    
-    setIsDark(isDark => !isDark); // Toggle the value of isDark
+    setIsDark((isDark) => !isDark); // Toggle the value of isDark
   };
 
   const onLogoutClick = () => {
@@ -49,13 +48,17 @@ const Header = () => {
             borderRadius: ".5em",
             fontFamily: "Arial",
             ":hover": {
-              outline: !isDark ? "2px solid black" : "2px solid white", 
+              outline: !isDark ? "2px solid black" : "2px solid white",
               cursor: "pointer",
             },
           }}
           onClick={handleThemeChange}
         >
-          {!isDark ? "Dark Mode" : "Light Mode"}
+          {!isDark ? (
+            <FormattedMessage id="lbl.darkmode" />
+          ) : (
+            <FormattedMessage id="lbl.lightmode" />
+          )}
         </Button>
         <Text color="white" sx={{ width: "10rem" }}>
           <FormattedMessage

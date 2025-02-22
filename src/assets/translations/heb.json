@@ -12,5 +12,9 @@
   "lbl.unpause": "להמשיך",
   "lbl.start": "להתחיל",
   "lbl.refresh": "לאתחל",
-  "lbl.numofdigits": "כמות הספרות"
+  "lbl.numofdigits": "כמות הספרות",
+  "lbl.highlight": "מרקר ספרה",
+  "lbl.darkmode": "חושך",
+  "lbl.lightmode": "אור",
+  "lbl.highlightdigit": "מרקר ספרה"
 }
