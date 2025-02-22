@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { Button, Image, Flex, Text } from "theme-ui";
@@ -6,9 +6,6 @@ import { doLogout } from "../redux/slices/AuthSlice";
 
 import pi_header from "../assets/images/pi_header.png";
 import LanguageSwitch from "./LanguageSwitch";
-
-export const darkContext = createContext();
-
 const Header = () => {
   const dispatch = useDispatch();
   const setErrorState = useState(null);

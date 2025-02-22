@@ -11,7 +11,6 @@ import Title from "../components/Title";
 import RenderDigits from "../components/RenderDigits";
 import LongPressButton from "../components/LongPressButton";
 import { FormattedMessage } from "react-intl";
-import { Form } from "react-hook-form";
 
 //================================================================================
 const Pi = () => {
