@@ -13,8 +13,9 @@
   "lbl.start": "להתחיל",
   "lbl.refresh": "לאתחל",
   "lbl.numofdigits": "כמות הספרות",
-  "lbl.highlight": "מרקר ספרה",
   "lbl.darkmode": "חושך",
   "lbl.lightmode": "אור",
-  "lbl.highlightdigit": "מרקר ספרה"
+  "lbl.highlightdigit": "מרקר ספרה",
+  "lbl.searchnumber": "חפש ספרה",
+  "lbl.searchbutton": "חפש ספרה"
 }

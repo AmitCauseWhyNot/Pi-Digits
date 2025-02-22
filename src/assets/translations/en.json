@@ -15,5 +15,7 @@
   "lbl.numofdigits": "Num of digits",
   "lbl.darkmode": "Dark mode",
   "lbl.lightmode": "Light mode",
-  "lbl.highlightdigit": "Highlight Digit"
+  "lbl.highlightdigit": "Highlight Digit",
+  "lbl.searchnumber": "Search Number",
+  "lbl.searchbutton": "Search Number"
 }

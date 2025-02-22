@@ -13,8 +13,9 @@
   "lbl.start": "Începe",
   "lbl.refresh": "Reîmprospăta",
   "lbl.numofdigits": "Numărul de cifre",
-  "lbl.highlight": "Evidențiați Digit",
   "lbl.darkmode": "Mod Întunecat",
   "lbl.lightmode": "Mod Luminos",
-  "lbl.highlightdigit": "Evidențiați Digit"
+  "lbl.highlightdigit": "Evidențiați Digit",
+  "lbl.searchnumber": "Număr căutare",
+  "lbl.searchbutton": "Număr căutare"
 }

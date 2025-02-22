@@ -1,6 +1,6 @@
 //Imports from react open source
 import React, { useEffect, useState } from "react";
-import { Text, Flex, Input } from "theme-ui";
+import { Button, Text, Flex, Input } from "theme-ui";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getPiDigits } from "../redux/slices/PiSlice";
@@ -11,6 +11,7 @@ import Title from "../components/Title";
 import RenderDigits from "../components/RenderDigits";
 import LongPressButton from "../components/LongPressButton";
 import { FormattedMessage } from "react-intl";
+import { Form } from "react-hook-form";
 
 //================================================================================
 const Pi = () => {
@@ -22,6 +23,7 @@ const Pi = () => {
   // Number of digits to fetch from the api
   const [numDigits, setNumDigits] = useState(0);
   const [digitSearch, setDigitSearch] = useState(0);
+  const [searchNumber, setSearchNumber] = useState(0);
 
   // Digits to Display
   const [digitsToDisplay, setDigitsToDisplay] = useState("3.");
@@ -113,6 +115,16 @@ const Pi = () => {
       setDigitSearch(value);
     }
   };
+
+  const changeSearchNumber = (value) => {
+    if (!isNaN(value)) {
+      setSearchNumber(value);
+    }
+  }
+
+  async function handleSearchNumber() {
+    
+  }
 
   return (
     <Flex
@@ -276,6 +288,65 @@ const Pi = () => {
                 }}
               />
             </Flex>
+          </Flex>
+
+          <Flex
+            sx={{
+              alignItems: "center",
+              background: "whitesmoke",
+              border: "solid",
+              borderRadius: "30px",
+              flexDirection: "column",
+              height: "280px",
+              justifyContent: "space-between",
+              marginTop: "50px",
+              py: "20px",
+              width: "15%",
+            }}
+          >
+            <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
+              <Text>
+                <FormattedMessage id="lbl.searchnumber" />
+              </Text>
+              <Input
+                sx={{
+                  marginX: "10px",
+                  marginY: "10px",
+                  textAlign: "center",
+                  width: "15em",
+                  borderRadius: "10px",
+                  borderWidth: "2px",
+                  outlineColor:
+                    errorType.negative || errorType.tooLong ? "red" : "black",
+                  borderColor:
+                    errorType.negative || errorType.tooLong ? "red" : "black",
+                }}
+                value={searchNumber}
+                onChange={(e) => {
+                  const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                  changeSearchNumber(newValue);
+                }}
+              />
+            </Flex>
+
+            <Button
+              sx={{
+                backgroundColor: "lightblue",
+                width: "14em",
+                height: "2em",
+                color: "black",
+                fontSize: "16px",
+                fontWeight: "bold",
+                ":hover": {
+                  outline: "2px solid black",
+                  cursor: "pointer"
+                }
+              }}
+
+              onClick={handleSearchNumber}
+            >
+              <FormattedMessage id="lbl.searchbutton" />
+            </Button>
           </Flex>
         </Flex>
 
