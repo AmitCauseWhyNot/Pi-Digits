@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, Flex, Input } from "theme-ui";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import { getPiDigits } from "../redux/slices/PiSlice";
 import MyButton from "../components/MyButton";
@@ -10,16 +9,15 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Title from "../components/Title";
 import RenderDigits from "../components/RenderDigits";
+import LongPressButton from "../components/LongPressButton";
 import { FormattedMessage } from "react-intl";
 
 //================================================================================
 const Pi = () => {
-  const history = useHistory();
   // Use dispatch to call redux functions
   const dispatch = useDispatch();
   // Use selector to get the piDigits from the store
   const { piDigits } = useSelector((state) => state.PiSlice);
-  const { loggedIn } = useSelector((state) => state.auth);
 
   // Number of digits to fetch from the api
   const [numDigits, setNumDigits] = useState(0);
@@ -41,7 +39,6 @@ const Pi = () => {
   //Use effect to print every second 1 digit
   useEffect(() => {
     // add 1 character to the display string
-    console.log(piDigits);
     const printDigits = () => {
       if (isStart && digitsToDisplay !== null)
         setDigitsToDisplay(
@@ -73,8 +70,7 @@ const Pi = () => {
     else {
       if (numDigits < 1000) {
         setNumDigits(numDigits + 1);
-      }
-      else {
+      } else {
         setNumDigits(1000);
       }
     }
@@ -104,7 +100,7 @@ const Pi = () => {
   const changeNumDigit = (value) => {
     handleRefresh();
     value = value.trim();
-    if (!isNaN(value)) {
+    if (!isNaN(value) && 0 <= Number(value) && Number(value) <= 1000) {
       setNumDigits(value);
     }
   };
@@ -155,9 +151,9 @@ const Pi = () => {
             <FormattedMessage id="lbl.numofdigits" />
           </Text>
           <Flex id="plusMinus-container">
-            <MyButton backgroundColor="coral" onClick={handleMinus}>
+            <LongPressButton backgroundColor="coral" onClick={handleMinus} onLongPress={handleMinus}>
               -
-            </MyButton>
+            </LongPressButton>
             <Input
               sx={{
                 marginX: "10px",
@@ -176,9 +172,9 @@ const Pi = () => {
                 changeNumDigit(newValue);
               }}
             />
-            <MyButton backgroundColor="DeepSkyBlue" onClick={handlePlus}>
+            <LongPressButton backgroundColor="DeepSkyBlue" onClick={handlePlus} onLongPress={handlePlus}>
               +
-            </MyButton>
+            </LongPressButton>
           </Flex>
 
           <Flex

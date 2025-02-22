@@ -10,6 +10,12 @@ import LanguageSwitch from "./LanguageSwitch";
 const Header = () => {
   const dispatch = useDispatch();
   const setErrorState = useState(null);
+  const [isDark, setIsDark] = useState(true); // Initialize state for isDark
+
+  const handleThemeChange = () => {
+    
+    setIsDark(isDark => !isDark); // Toggle the value of isDark
+  };
 
   const onLogoutClick = () => {
     try {
@@ -17,7 +23,7 @@ const Header = () => {
     } catch (error) {
       setErrorState(error);
     }
-  }
+  };
 
   return (
     <Flex
@@ -31,14 +37,35 @@ const Header = () => {
         py: "10px",
       }}
     >
-      <Text color="white" sx={{ width: "10rem" }}>
-        <FormattedMessage
-          id="lbl.formateDate"
-          values={{ dateParam: new Date() }}
-        />
-      </Text>
+      <Flex sx={{ alignItems: "center" }}>
+        <Button
+          sx={{
+            marginRight: "1em",
+            backgroundColor: !isDark ? "white" : "black",
+            color: isDark ? "white" : "black",
+            width: "10rem",
+            height: "2.5rem",
+            alignItems: "center",
+            borderRadius: ".5em",
+            fontFamily: "Arial",
+            ":hover": {
+              outline: !isDark ? "2px solid black" : "2px solid white", 
+              cursor: "pointer",
+            },
+          }}
+          onClick={handleThemeChange}
+        >
+          {!isDark ? "Dark Mode" : "Light Mode"}
+        </Button>
+        <Text color="white" sx={{ width: "10rem" }}>
+          <FormattedMessage
+            id="lbl.formateDate"
+            values={{ dateParam: new Date() }}
+          />
+        </Text>
+      </Flex>
 
-      <Image src={pi_header} sx={{ marginLeft: "12em" }} />
+      <Image src={pi_header} />
 
       <Flex sx={{ alignItems: "center" }}>
         <Button
@@ -53,8 +80,8 @@ const Header = () => {
             fontFamily: "Arial",
             ":hover": {
               outline: "2px solid black",
-              cursor: "pointer"
-            }
+              cursor: "pointer",
+            },
           }}
           onClick={onLogoutClick}
         >
@@ -66,6 +93,5 @@ const Header = () => {
     </Flex>
   );
 };
-
 
 export default Header;
