@@ -17,5 +17,6 @@
   "lbl.lightmode": "Light mode",
   "lbl.highlightdigit": "Highlight Digit",
   "lbl.searchnumber": "Search Number",
-  "lbl.searchbutton": "Search Number"
+  "lbl.searchbutton": "Search Number",
+  "lbl.copybutton": "Copy"
 }

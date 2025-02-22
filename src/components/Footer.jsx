@@ -1,5 +1,5 @@
 import { Text, Flex } from "theme-ui";
-import "./styles/Layout.css";
+import "./styles/Layout.css"; 
 
 const Footer = () => {
   return (
@@ -17,7 +17,6 @@ const Footer = () => {
       <Text
         sx={{
           fontSize: "75px",
-          fontFamily: "Arial",
           fontWeight: "bold",
         }}
       >

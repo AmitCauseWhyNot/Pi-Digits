@@ -11,6 +11,7 @@ import LanguageSwitch from "../components/LanguageSwitch";
 import { doLogin } from "../redux/slices/AuthSlice";
 import logo from "../assets/images/logo.svg";
 import background from "../assets/images/background.webp";
+import "../components/styles/Layout.css";
 
 const Login = () => {
   const history = useHistory();
@@ -96,12 +97,12 @@ const Login = () => {
             <LanguageSwitch />
           </Flex>
 
-          <Heading sx={{ textAlign: "center", mt: "2rem" }}>
+          <Heading sx={{ textAlign: "center", mt: "2rem", fontFamily: "system-ui" }}>
             <FormattedMessage id="lbl.log_in" />
           </Heading>
 
           <Flex sx={{ flexDirection: "column", width: "100%" }}>
-            <Label htmlFor="username">
+            <Label htmlFor="username" sx={{ fontWeight: "bold" }}>
               <FormattedMessage id="lbl.username" />
             </Label>
             <Input
@@ -117,7 +118,7 @@ const Login = () => {
           </Flex>
 
           <Flex sx={{ flexDirection: "column", width: "100%" }}>
-            <Label htmlFor="password" sx={{ mt: "tiny" }}>
+            <Label htmlFor="password" sx={{ mt: "tiny", fontWeight: "bold" }}>
               <FormattedMessage id="lbl.password" />
             </Label>
             <Flex sx={{ width: "100%" }}>
@@ -149,6 +150,7 @@ const Login = () => {
 
           <Button
             sx={{
+              backgroundColor: "blue",
               py: "small",
               fontSize: "button",
               mt: "larger",

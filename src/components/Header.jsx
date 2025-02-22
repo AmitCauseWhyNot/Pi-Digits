@@ -44,7 +44,6 @@ const Header = () => {
             height: "2.5rem",
             alignItems: "center",
             borderRadius: ".5em",
-            fontFamily: "Arial",
             ":hover": {
               outline: "2px solid var(--main-text-color)",
               cursor: "pointer",
@@ -78,7 +77,6 @@ const Header = () => {
             height: "2.5rem",
             alignItems: "center",
             borderRadius: ".5em",
-            fontFamily: "Arial",
             ":hover": {
               outline: "2px solid black",
               cursor: "pointer",

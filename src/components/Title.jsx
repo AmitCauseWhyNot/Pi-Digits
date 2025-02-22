@@ -7,7 +7,6 @@ const Title = () => {
     <Text
       sx={{
         color: "var(--main-text-color)",
-        fontFamily: "Times news Roman",
         fontStyle: "normal",
         fontSize: "50px",
         fontWeight: "bold",

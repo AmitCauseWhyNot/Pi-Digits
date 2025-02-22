@@ -9,7 +9,7 @@ export const getPiDigits = createAsyncThunk(
       const fetchData = fetch(url + numDigits)
         .then((response) => response.json())
         .then((response) => response.content);
-      console.log(fetchData);
+      // console.log(fetchData);
       return fetchData;
     } catch (err) {
       return rejectWithValue(err);

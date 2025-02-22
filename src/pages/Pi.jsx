@@ -13,6 +13,7 @@ import LongPressButton from "../components/LongPressButton";
 import { FormattedMessage } from "react-intl";
 import "../components/styles/Layout.css"
 
+
 //================================================================================
 const Pi = () => {
   // Use dispatch to call redux functions
@@ -24,6 +25,7 @@ const Pi = () => {
   const [numDigits, setNumDigits] = useState(0);
   const [digitSearch, setDigitSearch] = useState(0);
   const [searchNumber, setSearchNumber] = useState(0);
+  const [searchResult, setSearchResult] = useState(undefined);
 
   // Digits to Display
   const [digitsToDisplay, setDigitsToDisplay] = useState("3.");
@@ -40,6 +42,10 @@ const Pi = () => {
   });
 
   const formattedDigits = digitsToDisplay.slice(0, numDigits + 2);
+
+  useEffect(() => {
+    dispatch(getPiDigits(1000));
+  }, []);
 
   //--------------------------------------------------------------
   //Use effect to print every second 1 digit
@@ -64,8 +70,8 @@ const Pi = () => {
   //--------------------------------------------------------------
   //Handle minus function, sub 1 from  numDigits
   const handleMinus = () => {
-    if (numDigits > 0) {
-      setNumDigits(numDigits - 1);
+    if (+numDigits > 0) {
+      setNumDigits(+numDigits - 1);
     }
     setIsStart(false);
   };
@@ -74,8 +80,8 @@ const Pi = () => {
   const handlePlus = () => {
     if (numDigits === "" || numDigits === "0") setNumDigits(1);
     else {
-      if (numDigits < 1000) {
-        setNumDigits(numDigits + 1);
+      if (+numDigits < 1000) {
+        setNumDigits(+numDigits + 1);
       } else {
         setNumDigits(1000);
       }
@@ -124,8 +130,16 @@ const Pi = () => {
     }
   }
 
-  async function handleSearchNumber() {
-    
+  const handleSearchNumber = (searchValue) => {
+    const indexes = [...piDigits].reduce((indexes, _, idx) => {
+      if (piDigits.substring(idx, idx + searchValue.length) === searchValue) {
+        indexes.push(+idx + 1);
+      }
+
+      return indexes
+    }, []);
+
+    setSearchResult(indexes);
   }
 
   return (
@@ -180,7 +194,7 @@ const Pi = () => {
               width: "15%",
             }}
           >
-            <Text>
+            <Text sx={{ fontWeight: "bold" }}>
               <FormattedMessage id="lbl.numofdigits" />
             </Text>
             <Flex id="plusMinus-container">
@@ -267,7 +281,7 @@ const Pi = () => {
             }}
           >
             <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
-              <Text>
+              <Text sx={{ fontWeight: "bold" }}>
                 <FormattedMessage id="lbl.highlightdigit" />
               </Text>
               <Input
@@ -307,7 +321,7 @@ const Pi = () => {
             }}
           >
             <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
-              <Text>
+              <Text sx={{ fontWeight: "bold" }}>
                 <FormattedMessage id="lbl.searchnumber" />
               </Text>
               <Input
@@ -331,6 +345,18 @@ const Pi = () => {
               />
             </Flex>
 
+            <Flex
+              sx={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                flexWrap: "wrap",
+                padding: "1em",
+                overflowY: "auto",
+              }}
+            >
+              {searchResult?.map((result, index) => <Flex key={result}> {!index ? result : ", " + result} </Flex>)}
+            </Flex>
+
             <Button
               sx={{
                 backgroundColor: "lightblue",
@@ -345,7 +371,7 @@ const Pi = () => {
                 }
               }}
 
-              onClick={handleSearchNumber}
+              onClick={() => handleSearchNumber(searchNumber)}
             >
               <FormattedMessage id="lbl.searchbutton" />
             </Button>

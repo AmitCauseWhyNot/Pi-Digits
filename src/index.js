@@ -7,6 +7,7 @@ import MindRouter from "./common/router";
 import { LocalizationProvider } from "./common/intl/LocalizationContext";
 import store from "./redux/store";
 import ThemeProvider from "./common/theme/ThemeProvider";
+import "./components/styles/Layout.css";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,7 +19,6 @@ ReactDOM.render(
               body: {
                 overflowY: "visible !important",
                 margin: 0,
-                fontFamily: "'Work Sans', sans-serif",
                 fontFeatureSettings: "'lnum'",
                 WebkitFontSmoothing: "antialiased",
                 MozOsxFontSmoothing: "grayscale",

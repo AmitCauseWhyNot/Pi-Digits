@@ -2,8 +2,8 @@ body {
     --main-background-color: #f4f4f4;
     --marginal-background-color: #37a9d3;
     --main-text-color: #292A32;
-    
-    transition: background-color .5s ease-in !important;
+ 
+    font-family: system-ui;
 }
 
 body.dark {

@@ -27,7 +27,7 @@ Pi-Digits is a React application that fetches and displays the first \( n \) dig
 2. ~~**Long Press on +,- Buttons**: Add functionality to handle long press actions on the increment and decrement buttons.~~
 3. ~~**Highlight Occurrence of Digit X**: Highlight all occurrences of a specific digit (0-9).~~
 4. ~~**Copy Button**: Add a button to copy the displayed digits to the clipboard.~~
-5. **Light/Dark Theme**: Implement a toggle for switching between light and dark themes.
+5. ~~**Light/Dark Theme**: Implement a toggle for switching between light and dark themes.~~
 6. **Search Functionality**: Add a search feature to find the occurrence of a sequence like "12345" within the first 1000 digits of pi.
 
 ### Prerequisites

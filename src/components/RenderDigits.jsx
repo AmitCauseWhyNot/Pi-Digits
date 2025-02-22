@@ -1,3 +1,4 @@
+import { FormattedMessage } from "react-intl";
 import { Flex, Text, Spinner, Button } from "theme-ui";
 
 const RenderDigits = ({
@@ -82,7 +83,7 @@ const RenderDigits = ({
 
         onClick={handleCopyClicked}
       >
-        Copy
+        <FormattedMessage id="lbl.copybutton" />
       </Button>
     </Flex>
   );
