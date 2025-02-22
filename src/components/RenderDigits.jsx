@@ -1,4 +1,4 @@
-import { Flex, Text, Spinner } from "theme-ui";
+import { Flex, Text, Spinner, Button } from "theme-ui";
 
 const RenderDigits = ({
   digitsToDisplay = "default value",
@@ -28,6 +28,10 @@ const RenderDigits = ({
     });
   };
 
+  const handleCopyClicked = () => {
+    window.navigator.clipboard.writeText(digitsToDisplay);
+  }
+
   return (
     <Flex
       sx={{
@@ -35,7 +39,7 @@ const RenderDigits = ({
         background: "whitesmoke",
         border: "solid",
         borderColor: errorType.negative || errorType.tooLong ? "red" : "black",
-        flexDirection: "flex-start",
+        flexDirection: "row",
         padding: "20px",
         width: "50%",
         borderRadius: "30px",
@@ -46,7 +50,8 @@ const RenderDigits = ({
           fontSize: "30px",
           width: "100%",
           color: errorType.negative || errorType.tooLong ? "red" : "black",
-          textAlign: errorType.negative || errorType.tooLong ? "center" : "start",
+          textAlign:
+            errorType.negative || errorType.tooLong ? "center" : "start",
           wordBreak: "break-all",
           pb: "3rem",
         }}
@@ -58,6 +63,27 @@ const RenderDigits = ({
           : renderTextWithHighlight()}
         {showSpinner && <Spinner size={"25px"} color={"DeepSkyBlue"} />}
       </Text>
+
+      <Button
+        sx={{
+          width: "5em",
+          height: "2em",
+          backgroundColor: "lightgray",
+          color: "black",
+          fontWeight: "bold",
+          fontSize: "18px",
+          textAlign: "center",
+          borderRadius: "30px",
+          ":hover": {
+            cursor: "pointer",
+            outline: "2px solid black"
+          }
+        }}
+
+        onClick={handleCopyClicked}
+      >
+        Copy
+      </Button>
     </Flex>
   );
 };
