@@ -111,14 +111,14 @@ const Pi = () => {
   //--------------------------------------------------------------
   const changeNumDigit = (value) => {
     handleRefresh();
-    if (!isNaN(value) && 0 <= Number(value) && Number(value) <= 1000) {
-      setNumDigits(value);
+    if (!isNaN(value) && 0 <= +value && +value <= 1000) {
+      setNumDigits(+value);
     }
   };
   //--------------------------------------------------------------
   // function to handle change to the digit search input
   const changeDigitSearch = (value) => {
-    if (!isNaN(value) && 0 <= Number(value) && Number(value) <= 9) {
+    if (!isNaN(value) && 0 <= +value && +value <= 9) {
       setDigitSearch(value);
     }
   };
@@ -130,6 +130,11 @@ const Pi = () => {
   }
 
   const handleSearchNumber = (searchValue) => {
+    if (searchValue === "") {
+      setSearchResult([-1]);
+      return;
+    }
+
     const indexes = [...piDigits].reduce((indexes, _, idx) => {
       if (piDigits.substring(idx, idx + searchValue.length) === searchValue) {
         indexes.push(+idx + 1);
@@ -137,6 +142,11 @@ const Pi = () => {
 
       return indexes
     }, []);
+
+    if (!indexes.length) {
+      setSearchResult([-1]);
+      return;
+    }
 
     setSearchResult(indexes);
   }
