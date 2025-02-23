@@ -23,7 +23,7 @@ const Pi = () => {
   // Number of digits to fetch from the api
   const [numDigits, setNumDigits] = useState(0);
   const [digitSearch, setDigitSearch] = useState(0);
-  const [searchNumber, setSearchNumber] = useState(0);
+  const [searchNumber, setSearchNumber] = useState("0");
   const [searchResult, setSearchResult] = useState(undefined);
 
   // Digits to Display
@@ -130,6 +130,7 @@ const Pi = () => {
   }
 
   const handleSearchNumber = (searchValue) => {
+    console.log(searchValue);
     if (searchValue === "") {
       setSearchResult([-1]);
       return;
