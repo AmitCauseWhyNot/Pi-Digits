@@ -1,6 +1,6 @@
 //Imports from react open source
 import React, { useEffect, useState } from "react";
-import { Button, Text, Flex, Input } from "theme-ui";
+import { ThemeProvider, Button, Text, Flex, Input } from "theme-ui";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getPiDigits } from "../redux/slices/PiSlice";
@@ -11,8 +11,7 @@ import Title from "../components/Title";
 import RenderDigits from "../components/RenderDigits";
 import LongPressButton from "../components/LongPressButton";
 import { FormattedMessage } from "react-intl";
-import "../components/styles/Layout.css"
-
+import { theme } from "../common/theme";
 
 //================================================================================
 const Pi = () => {
@@ -143,254 +142,249 @@ const Pi = () => {
   }
 
   return (
-    <Flex
-      id="main_flex"
-      sx={{
-        flexDirection: "column",
-        justifyContent: "center",
-        alignContent: "center",
-        background: "var(--main-background-color)",
-        minHeight: "100vh",
-      }}
-    >
-      <Header />
-
+    <ThemeProvider theme={theme}>
       <Flex
-        id="Body"
+        id="main_flex"
         sx={{
-          alignItems: "center",
           flexDirection: "column",
           justifyContent: "center",
-          height: "100%",
-          py: "20px",
-          my: "auto",
+          alignContent: "center",
+          background: "background",
+          minHeight: "100vh",
         }}
       >
-        <Title />
-
+        <Header />
         <Flex
+          id="Body"
           sx={{
-            alignContent: "center",
             alignItems: "center",
-            flexDirection: "row",
-            height: "100%",
-            width: "100%",
+            flexDirection: "column",
             justifyContent: "center",
-            margin: "auto",
+            height: "100%",
+            py: "20px",
+            my: "auto",
           }}
         >
+          <Title />
           <Flex
-            id="main box"
             sx={{
+              alignContent: "center",
               alignItems: "center",
-              background: "whitesmoke",
-              border: "solid",
-              borderRadius: "30px",
-              flexDirection: "column",
-              height: "280px",
-              justifyContent: "space-between",
-              marginTop: "50px",
-              py: "20px",
-              width: "15%",
+              flexDirection: "row",
+              height: "100%",
+              width: "100%",
+              justifyContent: "center",
+              margin: "auto",
             }}
           >
-            <Text sx={{ fontWeight: "bold" }}>
-              <FormattedMessage id="lbl.numofdigits" />
-            </Text>
-            <Flex id="plusMinus-container">
-              <LongPressButton
-                backgroundColor="coral"
-                onClick={handleMinus}
-                onLongPress={handleMinus}
-              >
-                -
-              </LongPressButton>
-              <Input
-                sx={{
-                  marginX: "10px",
-                  textAlign: "center",
-                  width: "100px",
-                  borderRadius: "10px",
-                  borderWidth: "2px",
-                  outlineColor:
-                    errorType.negative || errorType.tooLong ? "red" : "black",
-                  borderColor:
-                    errorType.negative || errorType.tooLong ? "red" : "black",
-                }}
-                value={numDigits}
-                onChange={(e) => {
-                  const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
-                  changeNumDigit(newValue);
-                }}
-              />
-              <LongPressButton
-                backgroundColor="DeepSkyBlue"
-                onClick={handlePlus}
-                onLongPress={handlePlus}
-              >
-                +
-              </LongPressButton>
-            </Flex>
             <Flex
-              id="action-container"
-              sx={{ width: "100%", justifyContent: "space-around" }}
-            >
-              <MyButton
-                disabled={
-                  (!piDigits && isRefreshed) ||
-                  formattedDigits.length === numDigits + 2 ||
-                  !numDigits ||
-                  errorType.negative ||
-                  errorType.tooLong
-                }
-                onClick={handlePause}
-                bg="coral"
-                sx={{ width: "100px" }}
-              >
-                {pause ? (
-                  <FormattedMessage id="lbl.unpause" />
-                ) : (
-                  <FormattedMessage id="lbl.pause" />
-                )}
-              </MyButton>
-              <MyButton
-                disabled={isStart || !Number(String(numDigits).trim())}
-                onClick={handleStart}
-                bg="DeepSkyBlue"
-                sx={{ width: "100px" }}
-              >
-                <FormattedMessage id="lbl.start" />
-              </MyButton>
-            </Flex>
-            <MyButton bg="lightgreen" onClick={handleRefresh}>
-              <FormattedMessage id="lbl.refresh" />
-            </MyButton>
-          </Flex>
-          <Flex
-            sx={{
-              alignItems: "center",
-              background: "whitesmoke",
-              border: "solid",
-              borderRadius: "30px",
-              flexDirection: "column",
-              height: "280px",
-              justifyContent: "space-between",
-              marginTop: "50px",
-              py: "20px",
-              width: "15%",
-            }}
-          >
-            <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
-              <Text sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="lbl.highlightdigit" />
-              </Text>
-              <Input
-                sx={{
-                  marginX: "10px",
-                  marginY: "10px",
-                  textAlign: "center",
-                  width: "15em",
-                  borderRadius: "10px",
-                  borderWidth: "2px",
-                  outlineColor:
-                    errorType.negative || errorType.tooLong ? "red" : "black",
-                  borderColor:
-                    errorType.negative || errorType.tooLong ? "red" : "black",
-                }}
-                value={digitSearch}
-                onChange={(e) => {
-                  const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
-                  changeDigitSearch(newValue);
-                }}
-              />
-            </Flex>
-          </Flex>
-
-          <Flex
-            sx={{
-              alignItems: "center",
-              background: "whitesmoke",
-              border: "solid",
-              borderRadius: "30px",
-              flexDirection: "column",
-              height: "280px",
-              justifyContent: "space-between",
-              marginTop: "50px",
-              py: "20px",
-              width: "15%",
-            }}
-          >
-            <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
-              <Text sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="lbl.searchnumber" />
-              </Text>
-              <Input
-                sx={{
-                  marginX: "10px",
-                  marginY: "10px",
-                  textAlign: "center",
-                  width: "15em",
-                  borderRadius: "10px",
-                  borderWidth: "2px",
-                  outlineColor:
-                    errorType.negative || errorType.tooLong ? "red" : "black",
-                  borderColor:
-                    errorType.negative || errorType.tooLong ? "red" : "black",
-                }}
-                value={searchNumber}
-                onChange={(e) => {
-                  const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
-                  changeSearchNumber(newValue);
-                }}
-              />
-            </Flex>
-
-            <Flex
+              id="main box"
               sx={{
-                maxWidth: "100%",
-                maxHeight: "100%",
-                flexWrap: "wrap",
-                padding: "1em",
-                overflowY: "auto",
+                alignItems: "center",
+                background: "whitesmoke",
+                border: "solid",
+                borderRadius: "30px",
+                flexDirection: "column",
+                height: "280px",
+                justifyContent: "space-between",
+                marginTop: "50px",
+                py: "20px",
+                width: "15%",
               }}
             >
-              {searchResult?.map((result, index) => <Flex key={result}> {!index ? result : ", " + result} </Flex>)}
+              <Text sx={{ fontWeight: "bold" }}>
+                <FormattedMessage id="lbl.numofdigits" />
+              </Text>
+              <Flex id="plusMinus-container">
+                <LongPressButton
+                  backgroundColor="coral"
+                  onClick={handleMinus}
+                  onLongPress={handleMinus}
+                >
+                  -
+                </LongPressButton>
+                <Input
+                  sx={{
+                    marginX: "10px",
+                    textAlign: "center",
+                    width: "100px",
+                    borderRadius: "10px",
+                    borderWidth: "2px",
+                    outlineColor:
+                      errorType.negative || errorType.tooLong ? "red" : "black",
+                    borderColor:
+                      errorType.negative || errorType.tooLong ? "red" : "black",
+                  }}
+                  value={numDigits}
+                  onChange={(e) => {
+                    const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                    changeNumDigit(newValue);
+                  }}
+                />
+                <LongPressButton
+                  backgroundColor="DeepSkyBlue"
+                  onClick={handlePlus}
+                  onLongPress={handlePlus}
+                >
+                  +
+                </LongPressButton>
+              </Flex>
+              <Flex
+                id="action-container"
+                sx={{ width: "100%", justifyContent: "space-around" }}
+              >
+                <MyButton
+                  disabled={
+                    (!piDigits && isRefreshed) ||
+                    formattedDigits.length === numDigits + 2 ||
+                    !numDigits ||
+                    errorType.negative ||
+                    errorType.tooLong
+                  }
+                  onClick={handlePause}
+                  bg="coral"
+                  sx={{ width: "100px" }}
+                >
+                  {pause ? (
+                    <FormattedMessage id="lbl.unpause" />
+                  ) : (
+                    <FormattedMessage id="lbl.pause" />
+                  )}
+                </MyButton>
+                <MyButton
+                  disabled={isStart || !Number(String(numDigits).trim())}
+                  onClick={handleStart}
+                  bg="DeepSkyBlue"
+                  sx={{ width: "100px" }}
+                >
+                  <FormattedMessage id="lbl.start" />
+                </MyButton>
+              </Flex>
+              <MyButton bg="lightgreen" onClick={handleRefresh}>
+                <FormattedMessage id="lbl.refresh" />
+              </MyButton>
             </Flex>
-
-            <Button
+            <Flex
               sx={{
-                backgroundColor: "lightblue",
-                width: "14em",
-                height: "2em",
-                color: "black",
-                fontSize: "16px",
-                fontWeight: "bold",
-                ":hover": {
-                  outline: "2px solid black",
-                  cursor: "pointer"
-                }
+                alignItems: "center",
+                background: "whitesmoke",
+                border: "solid",
+                borderRadius: "30px",
+                flexDirection: "column",
+                height: "280px",
+                justifyContent: "space-between",
+                marginTop: "50px",
+                py: "20px",
+                width: "15%",
               }}
-
-              onClick={() => handleSearchNumber(searchNumber)}
             >
-              <FormattedMessage id="lbl.searchbutton" />
-            </Button>
+              <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
+                <Text sx={{ fontWeight: "bold" }}>
+                  <FormattedMessage id="lbl.highlightdigit" />
+                </Text>
+                <Input
+                  sx={{
+                    marginX: "10px",
+                    marginY: "10px",
+                    textAlign: "center",
+                    width: "15em",
+                    borderRadius: "10px",
+                    borderWidth: "2px",
+                    outlineColor:
+                      errorType.negative || errorType.tooLong ? "red" : "black",
+                    borderColor:
+                      errorType.negative || errorType.tooLong ? "red" : "black",
+                  }}
+                  value={digitSearch}
+                  onChange={(e) => {
+                    const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                    changeDigitSearch(newValue);
+                  }}
+                />
+              </Flex>
+            </Flex>
+            <Flex
+              sx={{
+                alignItems: "center",
+                background: "whitesmoke",
+                border: "solid",
+                borderRadius: "30px",
+                flexDirection: "column",
+                height: "280px",
+                justifyContent: "space-between",
+                marginTop: "50px",
+                py: "20px",
+                width: "15%",
+              }}
+            >
+              <Flex sx={{ alignItems: "center", flexDirection: "column" }}>
+                <Text sx={{ fontWeight: "bold" }}>
+                  <FormattedMessage id="lbl.searchnumber" />
+                </Text>
+                <Input
+                  sx={{
+                    marginX: "10px",
+                    marginY: "10px",
+                    textAlign: "center",
+                    width: "15em",
+                    borderRadius: "10px",
+                    borderWidth: "2px",
+                    outlineColor:
+                      errorType.negative || errorType.tooLong ? "red" : "black",
+                    borderColor:
+                      errorType.negative || errorType.tooLong ? "red" : "black",
+                  }}
+                  value={searchNumber}
+                  onChange={(e) => {
+                    const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                    changeSearchNumber(newValue);
+                  }}
+                />
+              </Flex>
+              <Flex
+                sx={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  flexWrap: "wrap",
+                  padding: "1em",
+                  overflowY: "auto",
+                }}
+              >
+                {searchResult?.map((result, index) => <Flex key={result}> {!index ? result : ", " + result} </Flex>)}
+              </Flex>
+              <Button
+                sx={{
+                  backgroundColor: "lightblue",
+                  width: "14em",
+                  height: "2em",
+                  color: "black",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  ":hover": {
+                    outline: "2px solid black",
+                    cursor: "pointer"
+                  }
+                }}
+                onClick={() => handleSearchNumber(searchNumber)}
+              >
+                <FormattedMessage id="lbl.searchbutton" />
+              </Button>
+            </Flex>
           </Flex>
+          <RenderDigits
+            digitsToDisplay={formattedDigits}
+            errorType={errorType}
+            showSpinner={
+              isStart &&
+              formattedDigits !== null &&
+              formattedDigits.length !== numDigits + 2
+            }
+            highlightedChar={digitSearch} // Highlight the character "3"
+          />
         </Flex>
-
-        <RenderDigits
-          digitsToDisplay={formattedDigits}
-          errorType={errorType}
-          showSpinner={
-            isStart &&
-            formattedDigits !== null &&
-            formattedDigits.length !== numDigits + 2
-          }
-          highlightedChar={digitSearch} // Highlight the character "3"
-        />
+        <Footer />
       </Flex>
-      <Footer />
-    </Flex>
+    </ThemeProvider>
   );
 };
 //================================================================================

@@ -1,5 +1,4 @@
 import { Text, Flex } from "theme-ui";
-import "./styles/Layout.css"; 
 
 const Footer = () => {
   return (
@@ -9,7 +8,7 @@ const Footer = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "var(--marginal-background-color)",
+        backgroundColor: "marginal",
         width: "100%",
         height: "128px",
       }}

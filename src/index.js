@@ -6,12 +6,13 @@ import { Provider } from "react-redux";
 import MindRouter from "./common/router";
 import { LocalizationProvider } from "./common/intl/LocalizationContext";
 import store from "./redux/store";
-import ThemeProvider from "./common/theme/ThemeProvider";
-import "./components/styles/Layout.css";
+
+import { ThemeProvider } from "theme-ui";
+import { theme } from "./common/theme/index";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <LocalizationProvider>
         <Provider store={store}>
           <Global

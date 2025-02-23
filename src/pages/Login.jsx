@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Flex, Heading, Image, Input, Label, Spinner } from "theme-ui";
+import { ThemeProvider, Button, Flex, Heading, Image, Input, Label, Spinner } from "theme-ui";
 import { useForm } from "react-hook-form";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
@@ -11,7 +11,7 @@ import LanguageSwitch from "../components/LanguageSwitch";
 import { doLogin } from "../redux/slices/AuthSlice";
 import logo from "../assets/images/logo.svg";
 import background from "../assets/images/background.webp";
-import "../components/styles/Layout.css";
+import { theme } from "../common/theme";
 
 const Login = () => {
   const history = useHistory();
@@ -25,7 +25,9 @@ const Login = () => {
 
   const ForgotPassword = () => {
     return ( <Flex>
-      <FormattedMessage id="lbl.forgot_password" />
+      <Label sx={{ fontFamily: "system-ui", fontWeight: "bold" }}>
+        <FormattedMessage id="lbl.forgot_password" />
+      </Label>
     </Flex> );
   };
 
@@ -59,119 +61,116 @@ const Login = () => {
   }, [history, loggedIn]);
 
   return (
-    <Flex
-      sx={{
-        flexDirection: "column",
-        minHeight: "100vh",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundImage: `url(${background})`,
-      }}
-    >
-      {!loggedIn && (
-        <Flex
-          px="4rem"
-          py="3rem"
-          bg="whiteSmoke"
-          sx={{
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexDirection: "column",
-            height: "35rem",
-            width: "30rem",
-            border: "solid 1px lightgrey",
-            borderRadius: "10px",
-          }}
-          as="form"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+    <ThemeProvider theme={theme}>
+      <Flex
+        sx={{
+          flexDirection: "column",
+          minHeight: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundImage: `url(${background})`,
+        }}
+      >
+        {!loggedIn && (
           <Flex
+            px="4rem"
+            py="3rem"
+            bg="whiteSmoke"
             sx={{
-              width: "100%",
               alignItems: "center",
               justifyContent: "space-between",
-              flexDirection: "row",
+              flexDirection: "column",
+              height: "35rem",
+              width: "30rem",
+              border: "solid 1px lightgrey",
+              borderRadius: "10px",
             }}
+            as="form"
+            onSubmit={handleSubmit(onSubmit)}
           >
-            <Image variant="logo" src={logo} />
-            <LanguageSwitch />
-          </Flex>
-
-          <Heading sx={{ textAlign: "center", mt: "2rem", fontFamily: "system-ui" }}>
-            <FormattedMessage id="lbl.log_in" />
-          </Heading>
-
-          <Flex sx={{ flexDirection: "column", width: "100%" }}>
-            <Label htmlFor="username" sx={{ fontWeight: "bold" }}>
-              <FormattedMessage id="lbl.username" />
-            </Label>
-            <Input
-              id="username"
-              name="username"
-              {...register("username", {
-                onChange: () => {
-                  setErrorState(null);
-                },
-                required: true,
-              })}
-            />
-          </Flex>
-
-          <Flex sx={{ flexDirection: "column", width: "100%" }}>
-            <Label htmlFor="password" sx={{ mt: "tiny", fontWeight: "bold" }}>
-              <FormattedMessage id="lbl.password" />
-            </Label>
-            <Flex sx={{ width: "100%" }}>
+            <Flex
+              sx={{
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+              <Image variant="logo" src={logo} />
+              <LanguageSwitch />
+            </Flex>
+            <Heading sx={{ textAlign: "center", mt: "2rem" }}>
+              <FormattedMessage id="lbl.log_in" />
+            </Heading>
+            <Flex sx={{ flexDirection: "column", width: "100%" }}>
+              <Label htmlFor="username" sx={{ fontFamily: "system-ui", fontWeight: "bold" }}>
+                <FormattedMessage id="lbl.username" />
+              </Label>
               <Input
-                id="password"
-                name="password"
-                type={!showPassword ? "password" : "text"}
-                {...register("password", {
+                id="username"
+                name="username"
+                {...register("username", {
                   onChange: () => {
                     setErrorState(null);
                   },
                   required: true,
                 })}
               />
-              <ShowPassword
-                onClick={() => setShowPassword(!showPassword)}
-                showPassword={showPassword}
-              />
             </Flex>
-          </Flex>
-
-          {errorState ? (
-            <Flex sx={{ width: "100%", height: "2rem" }}>{errorState}</Flex>
-          ) : (
-            <Flex sx={{ width: "100%", justifyContent: "center" }}>
-              <ForgotPassword />
-            </Flex>
-          )}
-
-          <Button
-            sx={{
-              backgroundColor: "blue",
-              py: "small",
-              fontSize: "button",
-              mt: "larger",
-              ":hover": {
-                cursor: "pointer",
-              },
-            }}
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <Flex sx={{ justifyContent: "center", alignItems: "center" }}>
-                <Spinner size={30} color="white" />
+            <Flex sx={{ flexDirection: "column", width: "100%" }}>
+              <Label htmlFor="password" sx={{ fontFamily: "system-ui", fontWeight: "bold" }}>
+                <FormattedMessage id="lbl.password" />
+              </Label>
+              <Flex sx={{ width: "100%" }}>
+                <Input
+                  id="password"
+                  name="password"
+                  type={!showPassword ? "password" : "text"}
+                  {...register("password", {
+                    onChange: () => {
+                      setErrorState(null);
+                    },
+                    required: true,
+                  })}
+                />
+                <ShowPassword
+                  onClick={() => setShowPassword(!showPassword)}
+                  showPassword={showPassword}
+                />
               </Flex>
+            </Flex>
+            {errorState ? (
+              <Flex sx={{ width: "100%", height: "2rem" }}>{errorState}</Flex>
             ) : (
-              <FormattedMessage id="lbl.sign_in" />
+              <Flex sx={{ width: "100%", justifyContent: "center" }}>
+                <ForgotPassword />
+              </Flex>
             )}
-          </Button>
-        </Flex>
-      )}
-    </Flex>
+            <Button
+              sx={{
+                backgroundColor: "blue",
+                py: "small",
+                fontSize: "button",
+                mt: "larger",
+                ":hover": {
+                  cursor: "pointer",
+                },
+              }}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <Flex sx={{ justifyContent: "center", alignItems: "center" }}>
+                  <Spinner size={30} color="white" />
+                </Flex>
+              ) : (
+                <FormattedMessage id="lbl.sign_in" />
+              )}
+            </Button>
+          </Flex>
+        )}
+      </Flex>
+    </ThemeProvider>
   );
 };
 

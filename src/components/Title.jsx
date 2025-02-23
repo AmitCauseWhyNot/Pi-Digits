@@ -1,6 +1,5 @@
 import { Text } from "theme-ui";
 import { FormattedMessage } from "react-intl";
-import "./styles/Layout.css"
 
 const Title = () => {
   return (
